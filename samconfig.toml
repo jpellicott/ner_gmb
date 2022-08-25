@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "ner"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-9zj98jcxuvlf"
+s3_prefix = "ner"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["SentimentFunction=178489124285.dkr.ecr.us-east-1.amazonaws.com/nerda1a38f3/sentimentfunction35d37012repo"]

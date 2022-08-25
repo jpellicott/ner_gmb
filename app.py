@@ -6,26 +6,27 @@ from pydantic import BaseModel
 from typing import List
 
 class BodyModel(BaseModel):
-    comments: List[str]
+    sentence: List[str]
    
 
-
-model_path = 'model'
-classify = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path)
+import torch
+model = torch.load('./ner_model_nerda_V2.pth')
+#model_path = 'model'
+extract = model.predict_text()
 
 app = FastAPI(title='Serverless Lambda FastAPI', root_path="/Prod/")
 
 
-@app.post("/sentiment", tags=["Sentiment Analysis"])
-def sentiment( item: BodyModel):
+@app.post("/NER", tags=["NER"])
+def NER( item: BodyModel):
     comments = item.comments
-    return {'result': classify(comments)}
+    return {'result': extract(comments)}
 
 
 
 @app.get("/", tags=["Health Check"])
 def root():
-    return {"message": "Ok"}
+    return {"message": "Okay"}
 
 
 handler = Mangum(app=app)
